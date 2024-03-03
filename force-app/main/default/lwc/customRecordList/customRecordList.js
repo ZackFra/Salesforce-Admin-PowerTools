@@ -109,7 +109,7 @@ export default class CustomRecordList extends LightningElement {
   newRecordLink;
 
   get totalPages() {
-    return Math.ceil(this.totalRecords / this.pageSize);
+    return Math.ceil(this.totalRecords / this.pageSize) || 1;
   }
 
   /**
@@ -118,7 +118,7 @@ export default class CustomRecordList extends LightningElement {
    * @returns {number}
    */
   get pageNumberDisplay() {
-    return !this.totalRecords ? 0 : this.pageNumber + 1;
+    return !this.totalRecords ? 1 : this.pageNumber + 1;
   }
 
   @wire(getRecords, {
