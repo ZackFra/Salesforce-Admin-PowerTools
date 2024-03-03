@@ -7,6 +7,7 @@
 
 */
 @IsTest
+@suppressWarnings('ALL')
 public with sharing class UniversalMocker implements System.StubProvider {
   // Map of methodName+paramTypes -> map of (paramname,value) for each invocation
   private final Map<String, List<Map<String, Object>>> argumentsMap = new Map<String, List<Map<String, Object>>>();
