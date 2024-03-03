@@ -37,6 +37,7 @@
         <members>customRecordListHeader</members>
         <members>customRecordListLightningDatatable</members>
         <members>customRecordListNewButton</members>
+        <members>dynamicFlowModal</members>
         <name>LightningComponentBundle</name>
     </types>
     <version>60.0</version>
