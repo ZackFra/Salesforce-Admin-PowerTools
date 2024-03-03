@@ -32,7 +32,7 @@ export default class GroupRecordList extends LightningElement {
   fields = ["Name", "DeveloperName", "CreatedDate", "CreatedBy.Name"];
 
   get newRecordLink() {
-    return `/setup/own/groupedit.jsp?retURL=${window.location}`;
+    return `/lightning/setup/PublicGroups/page?address=/setup/own/groupedit.jsp?retURL=${window.location}`;
   }
 
   get viewLink() {
