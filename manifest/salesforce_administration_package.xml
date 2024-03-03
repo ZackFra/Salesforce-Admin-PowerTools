@@ -8,7 +8,13 @@
         <members>userRecordList</members>
         <members>groupRecordList</members>
         <members>permissionSetRecordList</members>
+        <members>permissionSetGroupRecordList</members>
         <name>LightningComponentBundle</name>
+    </types>
+
+    <types>
+        <members>Create_Permission_Set_Group</members>
+        <name>Flow</name>
     </types>
 
     <types>
@@ -24,6 +30,7 @@
         <members>Public_Groups_Queues</members>
         <members>Users</members>
         <members>Permission_Sets</members>
+        <members>Permission_Set_Groups</members>
     </types>
     <types>
         <name>PermissionSet</name>

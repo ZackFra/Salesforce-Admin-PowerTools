@@ -12,8 +12,9 @@
     <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
     <label>Salesforce Administration</label>
     <navType>Standard</navType>
-    <tabs>Users</tabs>
     <tabs>Public_Groups_Queues</tabs>
+    <tabs>Users</tabs>
+    <tabs>Permission_Set_Groups</tabs>
     <tabs>Permission_Sets</tabs>
     <uiType>Lightning</uiType>
 </CustomApplication>
