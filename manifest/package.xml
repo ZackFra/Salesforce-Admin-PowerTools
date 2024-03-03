@@ -5,7 +5,9 @@
         <members>Common</members>
         <members>CommonTest</members>
         <members>CustomRecordListController</members>
+        <members>CustomRecordListControllerTest</members>
         <members>CustomRecordListService</members>
+        <members>CustomRecordListServiceTest</members>
         <members>DML</members>
         <members>fflib_IDGenerator</members>
         <members>fflib_IDGeneratorTest</members>
@@ -27,6 +29,7 @@
         <members>SchemaService</members>
         <members>Selector</members>
         <members>Types</members>
+        <members>UniversalMocker</members>
         <name>ApexClass</name>
     </types>
     <types>
