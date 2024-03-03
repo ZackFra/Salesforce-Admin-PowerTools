@@ -14,14 +14,19 @@ export default class CustomRecordListNewButton extends NavigationMixin(
   @api
   newRecordLink;
 
-  handleNew() {
+  async handleNew() {
     if (this.newRecordLink) {
-      this[NavigationMixin.Navigate]({
+      let target = "_blank";
+      if (this.newRecordLink.includes("retURL")) {
+        target = "_self";
+      }
+      const url = await this[NavigationMixin.GenerateUrl]({
         type: "standard__webPage",
         attributes: {
           url: this.newRecordLink
         }
       });
+      window.open(url, target);
       return;
     }
 
