@@ -1,5 +1,7 @@
 @IsTest
 public with sharing class CustomRecordListControllerTest {
+  final static Integer EXPECTED_PAGE_SIZE = CustomRecordListService.PAGE_SIZE;
+
   // suppressed warning, the assert is in the UniversalMocker class
   @IsTest
   @suppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
@@ -124,8 +126,6 @@ public with sharing class CustomRecordListControllerTest {
       'Exception was not handled by AuraHandledException'
     );
   }
-
-  final static Integer EXPECTED_PAGE_SIZE = CustomRecordListService.PAGE_SIZE;
 
   @IsTest
   private static void testGetPageSize() {
