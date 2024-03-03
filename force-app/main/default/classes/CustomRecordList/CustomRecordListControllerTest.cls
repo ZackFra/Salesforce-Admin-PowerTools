@@ -39,22 +39,6 @@ public with sharing class CustomRecordListControllerTest {
 
   @IsTest
   private static void testGetRecordsFail() {
-    Group g1 = new Group(
-      Name = 'Test Group 1',
-      DeveloperName = 'Test_Group_1',
-      Type = 'Regular',
-      Id = fflib_IDGenerator.generate(Group.SObjectType)
-    );
-
-    Group g2 = new Group(
-      Name = 'Test Group 2',
-      DeveloperName = 'Test_Group_2',
-      Type = 'Regular',
-      Id = fflib_IDGenerator.generate(Group.SObjectType)
-    );
-
-    List<Group> groups = new List<Group>{ g1, g2 };
-
     UniversalMocker mockInstance = UniversalMocker.mock(
       CustomRecordListService.class
     );
