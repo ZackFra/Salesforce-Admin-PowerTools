@@ -16,6 +16,7 @@ public with sharing class CustomRecordListController {
    * @throws AuraHandledException
    */
   @AuraEnabled(Cacheable=true)
+  @suppressWarnings('PMD.ExcessiveParameterList')
   public static List<Group> getRecords(
     List<String> fields,
     String objectName,
