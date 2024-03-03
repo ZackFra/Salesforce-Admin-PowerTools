@@ -27,7 +27,7 @@ const COLUMNS = [
   }
 ];
 
-export default class PublicGroups extends LightningElement {
+export default class GroupRecordList extends LightningElement {
   columns = COLUMNS;
   fields = ["Name", "DeveloperName", "CreatedDate", "CreatedBy.Name"];
 
