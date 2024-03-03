@@ -159,8 +159,7 @@ export default class CustomRecordList extends LightningElement {
   }
 
   get isNextDisabled() {
-    let totalPages = Math.ceil(this.totalRecords / this.pageSize);
-    return this.pageNumber >= totalPages - 1;
+    return this.pageNumberDisplay >= this.totalPages;
   }
 
   get isPreviousDisabled() {
