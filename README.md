@@ -2,7 +2,9 @@
 
 This project was created to create fancy list view for records that Salesforce has not migrated to Lightning yet.
 
-In the salesforce_administration_package, you can see three examples of this. In it there is a custom tab defined for "Users", "Permission Sets", and "Public Groups & Queues". This is just an example, the required code to just use this app is listed in the package.xml file.
+In the salesforce_administration_package.xml, you can see three examples of this. In it there is a custom tab defined for "Users", "Permission Sets", and "Public Groups & Queues". This is just one example. 
+
+The only code required to use this tool is listed in the package.xml file.
 
 To use this tool, all you need to do is create a lightning web component configured to be tab-accessible. Then in the lightning web component, add in the c-custom-record-list component and you'll be good to go.
 
