@@ -1,6 +1,8 @@
 @IsTest
 public with sharing class CustomRecordListControllerTest {
+  // suppressed warning, the assert is in the UniversalMocker class
   @IsTest
+  @suppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   private static void testGetRecords() {
     Group g1 = new Group(
       Name = 'Test Group 1',
@@ -77,7 +79,9 @@ public with sharing class CustomRecordListControllerTest {
     );
   }
 
+  // suppressed warning, the assert is in the UniversalMocker class
   @IsTest
+  @suppressWarning('PMD.ApexUnitTestClassShouldHaveAsserts')
   private static void testGetRecordCount() {
     UniversalMocker mockInstance = UniversalMocker.mock(
       CustomRecordListService.class
