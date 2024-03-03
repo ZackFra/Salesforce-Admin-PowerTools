@@ -5,14 +5,14 @@ on:
     branches:
       - main
     paths:
-      - 'force-app/main/default/**'
+      - "force-app/main/default/**"
 
 jobs:
   run-test-classes:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: 
+        with:
           fetch-depth: 0
       - name: Install Java
         run: |
