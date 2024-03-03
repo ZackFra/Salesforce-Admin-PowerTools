@@ -92,7 +92,6 @@ export default class CustomRecordList extends LightningElement {
   @api
   get rows() {
     return this.records.map((record) => {
-      console.log(this.viewLink);
       return {
         ...record,
         Name: {

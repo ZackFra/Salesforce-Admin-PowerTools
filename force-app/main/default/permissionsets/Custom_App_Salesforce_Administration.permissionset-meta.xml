@@ -12,4 +12,5 @@
   >Grants access to the Salesforce Administration app.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Custom App - Salesforce Administration</label>
+    <license>Salesforce</license>
 </PermissionSet>

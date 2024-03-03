@@ -7,6 +7,7 @@
     <types>
         <members>userRecordList</members>
         <members>groupRecordList</members>
+        <members>permissionSetRecordList</members>
         <name>LightningComponentBundle</name>
     </types>
 
@@ -22,6 +23,7 @@
         <name>CustomTab</name>
         <members>Public_Groups_Queues</members>
         <members>Users</members>
+        <members>Permission_Sets</members>
     </types>
     <types>
         <name>PermissionSet</name>
