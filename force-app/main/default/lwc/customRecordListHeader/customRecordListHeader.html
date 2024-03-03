@@ -6,6 +6,7 @@
     </div>
     <template lwc:if={showNewButton}>
       <c-custom-record-list-new-button
+        onmodalclose={handleModalClose}
         class-name="m-left_auto slds-col"
         object-api-name={objectApiName}
         new-record-link={newRecordLink}

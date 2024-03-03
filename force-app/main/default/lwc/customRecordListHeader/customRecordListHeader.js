@@ -15,4 +15,8 @@ export default class CustomRecordListHeader extends LightningElement {
   get showNewButton() {
     return !this.hideNewButton;
   }
+
+  handleModalClose() {
+    this.dispatchEvent(new CustomEvent("modalclose"));
+  }
 }

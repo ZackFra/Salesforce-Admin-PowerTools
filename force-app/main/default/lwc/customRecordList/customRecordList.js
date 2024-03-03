@@ -1,5 +1,6 @@
 import { LightningElement, wire, api } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { refreshApex } from "@salesforce/apex";
 import getRecords from "@salesforce/apex/CustomRecordListController.getRecords";
 import getRecordCount from "@salesforce/apex/CustomRecordListController.getRecordCount";
 import getPageSize from "@salesforce/apex/CustomRecordListController.getPageSize";
@@ -9,6 +10,9 @@ export default class CustomRecordList extends LightningElement {
    * @type {number}
    */
   pageNumber = 0;
+
+  recordsResult;
+  totalRecordsResult;
 
   /**
    * @type {number}
@@ -24,6 +28,14 @@ export default class CustomRecordList extends LightningElement {
     }
 
     this.pageSize = data;
+  }
+
+  /**
+   * @description If a record is created via a save modal, we need to refresh the records
+   */
+  handleModalClose() {
+    refreshApex(this.recordsResult);
+    refreshApex(this.totalRecordsResult);
   }
 
   /**
@@ -129,7 +141,7 @@ export default class CustomRecordList extends LightningElement {
     searchKey: "$searchKey"
   })
   _getRecords(results) {
-    this.totalRecordsResult = results;
+    this.recordsResult = results;
     const { err, data } = results;
     if (!err && !data) {
       return;
@@ -144,9 +156,12 @@ export default class CustomRecordList extends LightningElement {
 
   @wire(getRecordCount, {
     objectName: "$objectApiName",
+    nameField: "$nameField",
     searchKey: "$searchKey"
   })
-  _getRecordCount({ data, err }) {
+  _getRecordCount(result) {
+    this.totalRecordsResult = result;
+    const { err, data } = result;
     if (!err && !data && data !== 0) {
       return;
     }
