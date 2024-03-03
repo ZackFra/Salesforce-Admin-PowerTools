@@ -1,4 +1,7 @@
 public with sharing class CustomRecordListController {
+  @TestVisible
+  private static CustomRecordListService service = new CustomRecordListService();
+
   @AuraEnabled(Cacheable=true)
   public static List<Group> getRecords(
     List<String> fields,
@@ -7,7 +10,6 @@ public with sharing class CustomRecordListController {
     Integer pageNumber,
     String searchKey
   ) {
-    CustomRecordListService service = new CustomRecordListService();
     try {
       return service.getRecords(
         fields,
@@ -23,7 +25,6 @@ public with sharing class CustomRecordListController {
 
   @AuraEnabled(Cacheable=true)
   public static Integer getRecordCount(String objectName, String searchKey) {
-    CustomRecordListService service = new CustomRecordListService();
     try {
       return service.getRecordCount(objectName, searchKey);
     } catch (Exception ex) {

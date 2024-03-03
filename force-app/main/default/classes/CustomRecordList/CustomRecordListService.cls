@@ -18,13 +18,22 @@ public inherited sharing class CustomRecordListService {
       '%',
       'PAGE_SIZE' => PAGE_SIZE
     };
+
+    for (Integer i = 0; i < fields.size(); i++) {
+      fields[i] = String.escapeSingleQuotes(fields[i]);
+    }
+    objectName = String.escapeSingleQuotes(objectName);
+    nameField = String.escapeSingleQuotes(nameField);
+
     return this.db.getSelector()
       .queryWithBinds(
         'SELECT ' +
           String.join(fields, ',') +
           ' FROM ' +
           objectName +
-          ' WHERE Name LIKE :searchKey' +
+          ' WHERE ' +
+          nameField +
+          ' LIKE :searchKey' +
           ' ORDER BY ' +
           nameField +
           ' LIMIT :PAGE_SIZE' +
@@ -39,6 +48,7 @@ public inherited sharing class CustomRecordListService {
     Map<String, Object> binds = new Map<String, Object>{
       'searchKey' => searchKey
     };
+    objectName = String.escapeSingleQuotes(objectName);
     return this.db.getSelector()
       .countQueryWithBinds(
         'SELECT COUNT()' +
