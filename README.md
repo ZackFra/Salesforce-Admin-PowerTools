@@ -25,7 +25,7 @@ To use this tool, all you need to do is create a lightning web component configu
 ## API
 
 - `label` the label of your component, typically the plural of whichever record you're pulling.
-- `name-field` defaults to "Name", this is the name of the record. In some cases this may not be "Name", ex. for Cases this would be "CaseNumber".
+- `name-field` defaults to "Name", this is the name of the record. In some cases this may not be "Name", ex. for Permission Sets this would be "Label".
 - `icon-name` the name of the icon, typically it's whatever icon aligns with the records you're listing.
 - `object-api-name` the API name of the SObject.
 - `fields` the list fields you want displayed
