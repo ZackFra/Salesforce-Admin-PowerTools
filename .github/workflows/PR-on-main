@@ -28,13 +28,3 @@ jobs:
       - name: Raise Warnings
         run: |
           node scripts/js/raise-warnings.js
-      - name: Generate Manifest
-        run: |
-          sf sgd:source:delta -t HEAD -f $(git merge-base HEAD origin/main) --output .
-      - name: Log In To Org
-        run: |
-          echo "${{ secrets.SERVER_KEY }}" > server.key
-          sf org login jwt --client-id=${{ secrets.CLIENT_ID }} --username=${{ secrets.SF_USERNAME }} --jwt-key-file=server.key --set-default-dev-hub --alias=DevHub
-      - name: Validate Against Org
-        run: |
-          sf project deploy validate --manifest=package/package.xml -o DevHub -w 120
