@@ -79,7 +79,7 @@ public with sharing class CustomRecordListControllerTest {
     CustomRecordListController.service = mockService;
 
     Test.startTest();
-    CustomRecordListController.getRecordCount('Group', '');
+    CustomRecordListController.getRecordCount('Group', 'Name', '');
     Test.stopTest();
     mockInstance.assertThat().method('getRecordCount').wasCalled(1);
   }
@@ -98,7 +98,7 @@ public with sharing class CustomRecordListControllerTest {
     Boolean isAuraHandled = false;
     Test.startTest();
     try {
-      CustomRecordListController.getRecordCount('Group', '');
+      CustomRecordListController.getRecordCount('Group', 'Name', '');
     } catch (AuraHandledException e) {
       isAuraHandled = true;
     } catch (Exception e) {

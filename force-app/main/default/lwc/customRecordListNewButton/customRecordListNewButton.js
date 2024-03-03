@@ -1,5 +1,6 @@
 import { LightningElement, api } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
+import DynamicFlowModal from "c/dynamicFlowModal";
 
 export default class CustomRecordListNewButton extends NavigationMixin(
   LightningElement
@@ -15,7 +16,16 @@ export default class CustomRecordListNewButton extends NavigationMixin(
   newRecordLink;
 
   async handleNew() {
-    if (this.newRecordLink) {
+    if (this.newRecordLink.startsWith("flow:")) {
+      const flowApiName = this.newRecordLink.split(":")[1];
+      DynamicFlowModal.flowApiName = flowApiName;
+      await DynamicFlowModal.open({
+        label: "Create New Record",
+        flowApiName: flowApiName
+      });
+      this.dispatchEvent(new CustomEvent("modalclose"));
+      return;
+    } else if (this.newRecordLink) {
       let target = "_blank";
       if (this.newRecordLink.includes("retURL")) {
         target = "_self";

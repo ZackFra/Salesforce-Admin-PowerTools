@@ -40,14 +40,19 @@ public with sharing class CustomRecordListController {
   /**
    * @description Aura-enabled method to get the record count for the custom record list lwc
    * @param objectName - API name of the object
+   * @param nameField - API name of the field to use as the name
    * @param searchKey - Search key to filter records
    * @return Record count
    * @throws AuraHandledException
    */
   @AuraEnabled(Cacheable=true)
-  public static Integer getRecordCount(String objectName, String searchKey) {
+  public static Integer getRecordCount(
+    String objectName,
+    String nameField,
+    String searchKey
+  ) {
     try {
-      return service.getRecordCount(objectName, searchKey);
+      return service.getRecordCount(objectName, nameField, searchKey);
     } catch (Exception ex) {
       throw new AuraHandledException(ex.getMessage());
     }

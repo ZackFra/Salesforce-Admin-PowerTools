@@ -59,21 +59,30 @@ public inherited sharing class CustomRecordListService {
   /**
    * @description Get the total number of records from the database
    * @param objectName Name of the object to be queried
+   * @param nameField Name of the field to be used for ordering
    * @param searchKey Search key to be used for filtering
    * @return Total number of records
    */
-  public Integer getRecordCount(String objectName, String searchKey) {
+  public Integer getRecordCount(
+    String objectName,
+    String nameField,
+    String searchKey
+  ) {
     searchKey = '%' + searchKey + '%';
     Map<String, Object> binds = new Map<String, Object>{
       'searchKey' => searchKey
     };
     objectName = String.escapeSingleQuotes(objectName);
+    nameField = String.escapeSingleQuotes(nameField);
+
     return this.db.getSelector()
       .countQueryWithBinds(
         'SELECT COUNT()' +
           ' FROM ' +
           objectName +
-          ' WHERE Name LIKE :searchKey',
+          ' WHERE ' +
+          nameField +
+          ' LIKE :searchKey',
         binds,
         AccessLevel.USER_MODE
       );
