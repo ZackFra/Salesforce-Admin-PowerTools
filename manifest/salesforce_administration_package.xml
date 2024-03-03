@@ -13,6 +13,11 @@
     </types>
 
     <types>
+        <members>Create_Permission_Set_Group</members>
+        <name>Flow</name>
+    </types>
+
+    <types>
         <name>CustomApplication</name>
         <members>Salesforce_Administration</members>
     </types>
