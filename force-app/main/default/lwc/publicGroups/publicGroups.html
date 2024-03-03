@@ -1,22 +1,11 @@
 <template>
-  <lightning-spinner lwc:if={isLoading}> </lightning-spinner>
-  <div lwc:else>
-    <c-public-groups-lightning-datatable
-      key-field="Id"
-      data={datatableRows}
-      columns={columns}
-    >
-    </c-public-groups-lightning-datatable>
-
-    <lightning-button
-      disabled={isPreviousDisabled}
-      onclick={handlePrevious}
-      label="Previous"
-    ></lightning-button>
-    <lightning-button
-      disabled={isNextDisabled}
-      onclick={handleNext}
-      label="Next"
-    ></lightning-button>
-  </div>
+  <c-custom-record-list
+    label="Groups"
+    icon-name="standard:groups"
+    object-api-name="Group"
+    fields={fields}
+    new-record-link={newRecordLink}
+    view-link={viewLink}
+    columns={columns}
+  ></c-custom-record-list>
 </template>

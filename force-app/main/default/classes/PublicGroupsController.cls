@@ -1,9 +1,12 @@
 public with sharing class PublicGroupsController {
   @AuraEnabled(Cacheable=true)
-  public static List<Group> getPublicGroups(Integer pageNumber) {
+  public static List<Group> getPublicGroups(
+    Integer pageNumber,
+    String searchKey
+  ) {
     PublicGroupsService service = new PublicGroupsService();
     try {
-      return service.getPublicGroups(pageNumber);
+      return service.getPublicGroups(pageNumber, searchKey);
     } catch (Exception ex) {
       throw new AuraHandledException(ex.getMessage());
     }

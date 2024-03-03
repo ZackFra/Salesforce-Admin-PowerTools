@@ -1,0 +1,52 @@
+<template>
+  <lightning-card>
+    <lightning-spinner lwc:if={isLoading}> </lightning-spinner>
+    <div
+      lwc:else
+      class="slds-var-m-bottom_small slds-var-m-left_small slds-var-m-right_small"
+    >
+      <c-custom-record-list-header
+        label={label}
+        icon-name={iconName}
+        object-api-name={objectApiName}
+        new-record-link={newRecordLink}
+      ></c-custom-record-list-header>
+
+      <div class="slds-grid slds-var-p-bottom_small">
+        <p class="slds-col slds-size_1-of-3 m-top_auto">
+          {records.length} items &nbsp; | &nbsp; Page {pageNumberDisplay} of
+          {totalPages}
+        </p>
+
+        <lightning-input
+          class="slds-col slds-size_1-of-3 m-top_auto m-left_auto slds-var-m-left_small"
+          type="search"
+          label="Search"
+          value={searchKey}
+          onchange={handleSearchKeyChange}
+        ></lightning-input>
+      </div>
+      <c-custom-record-list-lightning-datatable
+        key-field="Id"
+        data={rows}
+        columns={columns}
+      >
+      </c-custom-record-list-lightning-datatable>
+
+      <div class="right-align slds-var-m-top_small">
+        <lightning-button
+          class="nav-btn"
+          disabled={isPreviousDisabled}
+          onclick={handlePrevious}
+          label="Previous"
+        ></lightning-button>
+        <lightning-button
+          class="nav-btn"
+          disabled={isNextDisabled}
+          onclick={handleNext}
+          label="Next"
+        ></lightning-button>
+      </div>
+    </div>
+  </lightning-card>
+</template>
