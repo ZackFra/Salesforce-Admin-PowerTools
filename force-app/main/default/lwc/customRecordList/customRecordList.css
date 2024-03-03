@@ -1,0 +1,16 @@
+.m-left_auto {
+  margin-left: auto;
+}
+
+.m-top_auto {
+  margin-top: auto;
+}
+
+.nav-btn {
+  margin: 0 0.5rem;
+}
+
+.right-align {
+  display: flex;
+  justify-content: flex-end;
+}

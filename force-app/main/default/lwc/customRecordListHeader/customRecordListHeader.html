@@ -1,0 +1,15 @@
+<template>
+  <div class="slds-grid">
+    <div class="slds-col slds-grid">
+      <lightning-icon icon-name={iconName} size="medium"></lightning-icon>
+      <h1 class="slds-var-m-left_small">{label}</h1>
+    </div>
+    <template lwc:if={showNewButton}>
+      <c-custom-record-list-new-button
+        class-name="m-left_auto slds-col"
+        object-api-name={objectApiName}
+        new-record-link={newRecordLink}
+      ></c-custom-record-list-new-button>
+    </template>
+  </div>
+</template>

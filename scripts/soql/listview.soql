@@ -1,0 +1,2 @@
+SELECT Id, Name, DeveloperName, SObjectType, IsSoqlCompatible, CreatedById, CreatedDate
+FROM ListView
