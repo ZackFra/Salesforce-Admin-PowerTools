@@ -19,6 +19,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install openjdk-11-jdk
           java -version
+      - name: Install SFDX
+        run: |
+          npm i -g @salesforce/cli
+          sf --version
       - name: Install Code Scanner
         run: |
           sf plugins install @salesforce/sfdx-scanner
