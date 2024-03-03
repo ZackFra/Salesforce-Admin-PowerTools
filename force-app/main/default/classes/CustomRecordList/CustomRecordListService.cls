@@ -16,6 +16,7 @@ public inherited sharing class CustomRecordListService {
    * @param searchKey Search key to be used for filtering
    * @return List of records
    */
+  @suppressWarnings('PMD.ExcessiveParameterList')
   public List<SObject> getRecords(
     List<String> fields,
     String objectName,
