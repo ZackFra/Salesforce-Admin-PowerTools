@@ -1,18 +1,36 @@
-# Salesforce DX Project: Next Steps
+# Custom Record Lists
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+This project was created to create fancy list view for records that Salesforce has not migrated to Lightning yet.
 
-## How Do You Plan to Deploy Your Changes?
+In the salesforce_administration_package, you can see three examples of this. In it there is a custom tab defined for "Users", "Permission Sets", and "Public Groups & Queues". This is just an example, the required code to just use this app is listed in the package.xml file.
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+To use this tool, all you need to do is create a lightning web component configured to be tab-accessible. Then in the lightning web component, add in the c-custom-record-list component and you'll be good to go.
 
-## Configure Your Salesforce DX Project
+## Example
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+```
+<template>
+  <c-custom-record-list
+    label="Groups"
+    icon-name="standard:groups"
+    object-api-name="Group"
+    fields={fields}
+    new-record-link={newRecordLink}
+    view-link={viewLink}
+    columns={columns}
+  ></c-custom-record-list>
+</template>
+```
 
-## Read All About It
+## API
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+- label, the label of your component, typically the plural of whichever record you're pulling.
+- name-field, defaults to "Name", this is the name of the record. In some cases this may not be "Name", ex. for Cases this would be "CaseNumber".
+- icon-name, the name of the icon, typically it's whatever icon aligns with the records you're listing.
+- object-api-name, the API name of the SObject.
+- fields, the fields you want displayed
+- new-record-link, defaults to the standard Salesforce link for new records. For setup objects (ex. Groups, Users) you'll want to use the links from the setup page.
+- view-link, the link to view the record. Defaults to the standard record view page. For setup objects, you'll want to use the links from the setup page.
+- columns, the columns of the table. This tool uses a custom lightning-datatable, the custom-record-list-lightning-datatable. It extends the standard lightning-datatable with two new column types.
+  - The formattedLink works with the name-field. Whatever field is set to the name-field will be transformed into a link to the record. The fieldApiName should be "Name", since a fake "Name" column will be added to the data to support this. The label can be whatever you want.
+  - The parentNameField is used when you want to pull in the "Name" field from a related record. For example for Users, you'll want to pull in UserRole.Name.
