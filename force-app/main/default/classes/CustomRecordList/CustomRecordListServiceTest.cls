@@ -58,7 +58,7 @@ public with sharing class CustomRecordListServiceTest {
 
     db.registerCountQuery(COUNT_QUERY_STRING, groups.size());
     Test.startTest();
-    Integer recordCount = service.getRecordCount('Group', '');
+    Integer recordCount = service.getRecordCount('Group', 'Name', '');
     Test.stopTest();
 
     Assert.areEqual(2, recordCount, 'Expected 2 records');
