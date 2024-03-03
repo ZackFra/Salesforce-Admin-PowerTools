@@ -56,7 +56,6 @@ public with sharing class CustomRecordListServiceTest {
     CustomRecordListService service = new CustomRecordListService();
     service.db = db;
 
-    List<String> fields = new List<String>{ 'Name', 'DeveloperName', 'Type' };
     db.registerCountQuery(COUNT_QUERY_STRING, groups.size());
     Test.startTest();
     Integer recordCount = service.getRecordCount('Group', '');
