@@ -1,4 +1,4 @@
-name: CodeScna Pull Request On Main
+name: CodeScan Pull Request On Main
 
 on:
   pull_request:
