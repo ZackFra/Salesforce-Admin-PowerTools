@@ -30,4 +30,9 @@ public with sharing class CustomRecordListController {
       throw new AuraHandledException(ex.getMessage());
     }
   }
+
+  @AuraEnabled(Cacheable=true)
+  public static Integer getPageSize() {
+    return CustomRecordListService.PAGE_SIZE;
+  }
 }

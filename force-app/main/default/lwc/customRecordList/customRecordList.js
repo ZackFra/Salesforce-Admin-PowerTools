@@ -1,17 +1,30 @@
 import { LightningElement, wire, api } from "lwc";
-import { refreshApex } from "@salesforce/apex";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import getRecords from "@salesforce/apex/CustomRecordListController.getRecords";
 import getRecordCount from "@salesforce/apex/CustomRecordListController.getRecordCount";
+import getPageSize from "@salesforce/apex/CustomRecordListController.getPageSize";
 
-const PAGE_SIZE = 50;
 export default class CustomRecordList extends LightningElement {
   /**
    * @type {number}
    */
   pageNumber = 0;
 
-  totalRecordsResult;
+  /**
+   * @type {number}
+   */
+  @wire(getPageSize)
+  _getPageSize({ data, error }) {
+    if (!error && !data) {
+      return;
+    }
+    if (error) {
+      this.handleError(error);
+      return;
+    }
+
+    this.pageSize = data;
+  }
 
   /**
    * @type {number}
@@ -61,8 +74,9 @@ export default class CustomRecordList extends LightningElement {
   /**
    * @type {string}
    */
+
   @api
-  viewLink = `/lightning/r/${this.objectApiName}/{{recordId}}/view`;
+  viewLink = `/{{recordId}}`;
 
   /**
    * @type {string}
@@ -78,6 +92,7 @@ export default class CustomRecordList extends LightningElement {
   @api
   get rows() {
     return this.records.map((record) => {
+      console.log(this.viewLink);
       return {
         ...record,
         Name: {
@@ -95,12 +110,7 @@ export default class CustomRecordList extends LightningElement {
   newRecordLink;
 
   get totalPages() {
-    console.log(
-      this.totalRecords,
-      PAGE_SIZE,
-      Math.ceil(this.totalRecords / PAGE_SIZE)
-    );
-    return Math.ceil(this.totalRecords / PAGE_SIZE);
+    return Math.ceil(this.totalRecords / this.pageSize);
   }
 
   /**
@@ -121,13 +131,13 @@ export default class CustomRecordList extends LightningElement {
   })
   _getRecords(results) {
     this.totalRecordsResult = results;
-    const { error, data } = results;
-    if (!error && !data) {
+    const { err, data } = results;
+    if (!err && !data) {
       return;
     }
     this.isLoading = false;
-    if (error) {
-      this.handleError(error);
+    if (err) {
+      this.handleError(err);
     }
 
     this.records = data;
@@ -150,7 +160,7 @@ export default class CustomRecordList extends LightningElement {
   }
 
   get isNextDisabled() {
-    let totalPages = Math.ceil(this.totalRecords / PAGE_SIZE);
+    let totalPages = Math.ceil(this.totalRecords / this.pageSize);
     return this.pageNumber >= totalPages - 1;
   }
 
@@ -181,9 +191,7 @@ export default class CustomRecordList extends LightningElement {
    * @param {Event & { detail : Object }} event
    */
   handleSearchKeyChange(event) {
-    console.log("handleSearchKeyChangeFired", event.detail.value);
     this.searchKey = event.detail.value;
     this.pageNumber = 0;
-    refreshApex(this.totalRecordsResult);
   }
 }

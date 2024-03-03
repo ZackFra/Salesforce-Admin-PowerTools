@@ -28,8 +28,6 @@ const COLUMNS = [
 ];
 
 export default class PublicGroups extends LightningElement {
-  pageNumber = 0;
-  totalGroups = 0;
   columns = COLUMNS;
   fields = ["Name", "DeveloperName", "CreatedDate", "CreatedBy.Name"];
 

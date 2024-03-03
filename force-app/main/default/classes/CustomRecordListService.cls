@@ -2,7 +2,7 @@ public inherited sharing class CustomRecordListService {
   @TestVisible
   IORM db = new ORM();
 
-  public static final Integer PAGE_SIZE = 50;
+  public static final Integer PAGE_SIZE = 25;
 
   public List<SObject> getRecords(
     List<String> fields,
