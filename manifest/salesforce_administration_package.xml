@@ -27,7 +27,8 @@
      -->
     <types>
         <name>CustomTab</name>
-        <members>Public_Groups_Queues</members>
+        <members>Public_Groups</members>
+        <members>Queues</members>
         <members>Users</members>
         <members>Permission_Sets</members>
         <members>Permission_Set_Groups</members>

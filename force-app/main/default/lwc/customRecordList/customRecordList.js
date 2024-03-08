@@ -1,5 +1,12 @@
+/**
+ * @typedef {import('typings/custom-record-list-service-options')} CustomRecordListServiceOptions
+ * @typedef {import('typings/list-filter')} ListFilter
+ */
+
 import { LightningElement, wire, api } from "lwc";
+// @ts-ignore
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+// @ts-ignore
 import { refreshApex } from "@salesforce/apex";
 import getRecords from "@salesforce/apex/CustomRecordListController.getRecords";
 import getRecordCount from "@salesforce/apex/CustomRecordListController.getRecordCount";
@@ -15,10 +22,11 @@ export default class CustomRecordList extends LightningElement {
   totalRecordsResult;
 
   /**
-   * @type {number}
+   * @description Retrieves the number of records to display per page from the server
+   * @param {*} results
    */
   @wire(getPageSize)
-  _getPageSize({ data, error }) {
+  _getPageSize({ error, data }) {
     if (!error && !data) {
       return;
     }
@@ -39,15 +47,25 @@ export default class CustomRecordList extends LightningElement {
   }
 
   /**
+   * @type {ListFilter[]}
+   * @default []
+   */
+  @api
+  filters = [];
+
+  /**
    * @type {number}
    */
   totalRecords = 0;
+
   /**
    * @type {boolean}
    */
   isLoading = true;
+
   /**
    * @type {string}
+   * @default ''
    */
   searchKey = "";
 
@@ -56,12 +74,21 @@ export default class CustomRecordList extends LightningElement {
    */
   records;
 
+  /**
+   * @type {string}
+   */
   @api
   label;
 
+  /**
+   * @type {string}
+   */
   @api
   iconName;
 
+  /**
+   * @type {boolean}
+   */
   @api
   hideNewButton = false;
 
@@ -73,9 +100,10 @@ export default class CustomRecordList extends LightningElement {
 
   /**
    * @type {string[]}
+   * @default []
    */
   @api
-  fields;
+  fields = [];
 
   /**
    * @type {Array}
@@ -99,7 +127,7 @@ export default class CustomRecordList extends LightningElement {
   nameField = "Name";
 
   /**
-   * @type {Array}
+   * @type {Object[]}
    */
   @api
   get rows() {
@@ -133,11 +161,17 @@ export default class CustomRecordList extends LightningElement {
     return !this.totalRecords ? 1 : this.pageNumber + 1;
   }
 
+  /**
+   *
+   * @param {*} results
+   * @returns {void}
+   */
   @wire(getRecords, {
     fields: "$fields",
     objectName: "$objectApiName",
     nameField: "$nameField",
     pageNumber: "$pageNumber",
+    filters: "$filters",
     searchKey: "$searchKey"
   })
   _getRecords(results) {
@@ -154,41 +188,67 @@ export default class CustomRecordList extends LightningElement {
     this.records = data;
   }
 
+  /**
+   *
+   * @param {*} result
+   * @returns {void}
+   */
   @wire(getRecordCount, {
     objectName: "$objectApiName",
     nameField: "$nameField",
+    filters: "$filters",
     searchKey: "$searchKey"
   })
   _getRecordCount(result) {
     this.totalRecordsResult = result;
-    const { err, data } = result;
-    if (!err && !data && data !== 0) {
+    const { error, data } = result;
+    if (!error && !data && data !== 0) {
       return;
     }
 
-    if (err) {
-      this.handleError(err);
+    if (error) {
+      console.error("filters", JSON.stringify(this.filters));
+      this.handleError(error);
       return;
     }
     this.totalRecords = data;
   }
 
+  /**
+   * @type {boolean}
+   */
   get isNextDisabled() {
     return this.pageNumberDisplay >= this.totalPages;
   }
 
+  /**
+   * @type {boolean}
+   */
   get isPreviousDisabled() {
     return this.pageNumber === 0;
   }
 
+  /**
+   * @description Handles the next button click
+   * @returns {void}
+   */
   handleNext() {
     this.pageNumber++;
   }
 
+  /**
+   * @description Handles the previous button click
+   * @returns {void}
+   */
   handlePrevious() {
     this.pageNumber--;
   }
 
+  /**
+   * @description Handles errors
+   * @param {Error & { body: { message: string } } } err
+   * @returns {void}
+   */
   handleError(err) {
     this.dispatchEvent(
       new ShowToastEvent({
@@ -201,7 +261,7 @@ export default class CustomRecordList extends LightningElement {
 
   /**
    *
-   * @param {Event & { detail : Object }} event
+   * @param {Event & { detail : object }} event
    */
   handleSearchKeyChange(event) {
     this.searchKey = event.detail.value;

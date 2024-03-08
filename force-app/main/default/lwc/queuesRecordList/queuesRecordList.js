@@ -34,16 +34,16 @@ const COLUMNS = [
   }
 ];
 
-export default class GroupRecordList extends LightningElement {
+export default class QueuesRecordList extends LightningElement {
   columns = COLUMNS;
   fields = ["Name", "DeveloperName", "CreatedDate", "CreatedBy.Name"];
 
   get newRecordLink() {
-    return `/lightning/setup/PublicGroups/page?address=/setup/own/groupedit.jsp?retURL=${window.location.pathname}`;
+    return `/lightning/setup/Queues/page?address=/p/own/Queue/e?retURL=${window.location.pathname}`;
   }
 
   get viewLink() {
-    return `/lightning/setup/PublicGroups/page?address=/setup/own/groupdetail.jsp?id={{recordId}}`;
+    return `/lightning/setup/PublicGroups/page?address=/p/own/Queue/d?id={{recordId}}`;
   }
 
   /**
@@ -56,7 +56,7 @@ export default class GroupRecordList extends LightningElement {
         operator: "=",
         comparate: {
           type: "string",
-          value: "Regular"
+          value: "Queue"
         }
       }
     ];

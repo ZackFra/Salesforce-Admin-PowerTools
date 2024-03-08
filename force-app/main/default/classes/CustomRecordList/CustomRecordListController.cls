@@ -15,23 +15,25 @@ public with sharing class CustomRecordListController {
    * @return List of records
    * @throws AuraHandledException
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   @AuraEnabled(Cacheable=true)
-  @suppressWarnings('PMD.ExcessiveParameterList')
   public static List<Group> getRecords(
     List<String> fields,
     String objectName,
     String nameField,
+    List<ListFilter> filters,
     Integer pageNumber,
     String searchKey
   ) {
     try {
-      return service.getRecords(
-        fields,
-        objectName,
-        nameField,
-        pageNumber,
-        searchKey
-      );
+      GetRecordOptions options = new GetRecordOptionsBuilder()
+        .setFields(fields)
+        .setObjectName(objectName)
+        .setNameField(nameField)
+        .setSearchKey(searchKey)
+        .setFilters(filters)
+        .build();
+      return service.getRecords(options, pageNumber);
     } catch (Exception ex) {
       throw new AuraHandledException(ex.getMessage());
     }
@@ -45,14 +47,22 @@ public with sharing class CustomRecordListController {
    * @return Record count
    * @throws AuraHandledException
    */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
   @AuraEnabled(Cacheable=true)
   public static Integer getRecordCount(
     String objectName,
     String nameField,
+    List<ListFilter> filters,
     String searchKey
   ) {
     try {
-      return service.getRecordCount(objectName, nameField, searchKey);
+      GetRecordOptions options = new GetRecordOptionsBuilder()
+        .setObjectName(objectName)
+        .setNameField(nameField)
+        .setFilters(filters)
+        .setSearchKey(searchKey)
+        .build();
+      return service.getRecordCount(options);
     } catch (Exception ex) {
       throw new AuraHandledException(ex.getMessage());
     }

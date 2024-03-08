@@ -1,5 +1,9 @@
+/**
+ * @typedef {import('typings/list-filter')} ListFilter
+ */
 import { LightningElement } from "lwc";
 
+// @ts-ignore
 import DESCRIPTION_FIELD from "@salesforce/schema/PermissionSet.Description";
 
 const COLUMNS = [
@@ -30,5 +34,37 @@ export default class PermissionSetRecordList extends LightningElement {
 
   get viewLink() {
     return `/lightning/setup/PermSets/page?address=/{{recordId}}`;
+  }
+
+  /**
+   * @type {ListFilter[]}
+   */
+  get filters() {
+    return [
+      {
+        field: "Type",
+        operator: "!=",
+        comparate: {
+          type: "string",
+          value: "Group"
+        }
+      },
+      {
+        field: "Type",
+        operator: "!=",
+        comparate: {
+          type: "string",
+          value: "Session"
+        }
+      },
+      {
+        field: "Type",
+        operator: "!=",
+        comparate: {
+          type: "string",
+          value: "Profile"
+        }
+      }
+    ];
   }
 }
