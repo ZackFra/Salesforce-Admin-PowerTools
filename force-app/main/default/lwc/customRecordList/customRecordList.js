@@ -22,31 +22,6 @@ export default class CustomRecordList extends LightningElement {
   totalRecordsResult;
 
   /**
-   * @description Retrieves the number of records to display per page from the server
-   * @param {*} results
-   */
-  @wire(getPageSize)
-  _getPageSize({ error, data }) {
-    if (!error && !data) {
-      return;
-    }
-    if (error) {
-      this.handleError(error);
-      return;
-    }
-
-    this.pageSize = data;
-  }
-
-  /**
-   * @description If a record is created via a save modal, we need to refresh the records
-   */
-  handleModalClose() {
-    refreshApex(this.recordsResult);
-    refreshApex(this.totalRecordsResult);
-  }
-
-  /**
    * @type {ListFilter[]}
    * @default []
    */
@@ -127,6 +102,31 @@ export default class CustomRecordList extends LightningElement {
   nameField = "Name";
 
   /**
+   * @description Retrieves the number of records to display per page from the server
+   * @param {*} results
+   */
+  @wire(getPageSize)
+  _getPageSize({ error, data }) {
+    if (!error && !data) {
+      return;
+    }
+    if (error) {
+      this.handleError(error);
+      return;
+    }
+
+    this.pageSize = data;
+  }
+
+  /**
+   * @description If a record is created via a save modal, we need to refresh the records
+   */
+  handleModalClose() {
+    refreshApex(this.recordsResult);
+    refreshApex(this.totalRecordsResult);
+  }
+
+  /**
    * @type {Object[]}
    */
   @api
@@ -161,28 +161,34 @@ export default class CustomRecordList extends LightningElement {
     return !this.totalRecords ? 1 : this.pageNumber + 1;
   }
 
+  get options() {
+    return {
+      fields: this.fields,
+      objectName: this.objectApiName,
+      nameField: this.nameField,
+      filters: this.filters,
+      searchKey: this.searchKey
+    };
+  }
+
   /**
    *
    * @param {*} results
    * @returns {void}
    */
   @wire(getRecords, {
-    fields: "$fields",
-    objectName: "$objectApiName",
-    nameField: "$nameField",
-    pageNumber: "$pageNumber",
-    filters: "$filters",
-    searchKey: "$searchKey"
+    options: "$options",
+    pageNumber: "$pageNumber"
   })
   _getRecords(results) {
     this.recordsResult = results;
-    const { err, data } = results;
-    if (!err && !data) {
+    const { error, data } = results;
+    if (!error && !data) {
       return;
     }
     this.isLoading = false;
-    if (err) {
-      this.handleError(err);
+    if (error) {
+      this.handleError(error);
     }
 
     this.records = data;
@@ -194,10 +200,7 @@ export default class CustomRecordList extends LightningElement {
    * @returns {void}
    */
   @wire(getRecordCount, {
-    objectName: "$objectApiName",
-    nameField: "$nameField",
-    filters: "$filters",
-    searchKey: "$searchKey"
+    options: "$options"
   })
   _getRecordCount(result) {
     this.totalRecordsResult = result;
@@ -207,7 +210,6 @@ export default class CustomRecordList extends LightningElement {
     }
 
     if (error) {
-      console.error("filters", JSON.stringify(this.filters));
       this.handleError(error);
       return;
     }

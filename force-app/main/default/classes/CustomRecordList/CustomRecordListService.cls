@@ -23,6 +23,7 @@ public inherited sharing class CustomRecordListService {
     GetRecordOptions options,
     Integer pageNumber
   ) {
+    options.validate();
     GetRecordOptions escapedOptions = escapeOptions(options);
 
     Map<String, Object> binds = new Map<String, Object>{
@@ -37,25 +38,23 @@ public inherited sharing class CustomRecordListService {
     for (ListFilter filter : escapedOptions.filters) {
       filterValue += 'AND ' + filter.buildQueryFilter(binds) + ' ';
     }
-
+    String query =
+      'SELECT ' +
+      String.join(escapedOptions.fields, ',') +
+      ' FROM ' +
+      escapedOptions.objectName +
+      ' WHERE ' +
+      escapedOptions.nameField +
+      ' LIKE :searchKey' +
+      ' ' +
+      filterValue +
+      ' ORDER BY ' +
+      escapedOptions.nameField +
+      ' LIMIT :PAGE_SIZE' +
+      ' OFFSET :offset';
+    System.debug('query: ' + query);
     return this.db.getSelector()
-      .queryWithBinds(
-        'SELECT ' +
-          String.join(escapedOptions.fields, ',') +
-          ' FROM ' +
-          escapedOptions.objectName +
-          ' WHERE ' +
-          escapedOptions.nameField +
-          ' LIKE :searchKey' +
-          ' ' +
-          filterValue +
-          ' ORDER BY ' +
-          escapedOptions.nameField +
-          ' LIMIT :PAGE_SIZE' +
-          ' OFFSET :offset',
-        binds,
-        AccessLevel.USER_MODE
-      );
+      .queryWithBinds(query, binds, AccessLevel.USER_MODE);
   }
 
   private GetRecordOptions escapeOptions(GetRecordOptions options) {
@@ -92,6 +91,7 @@ public inherited sharing class CustomRecordListService {
    * @return Total number of records
    */
   public Integer getRecordCount(GetRecordOptions options) {
+    options.validate();
     GetRecordOptions escapedOptions = escapeOptions(options);
     String searchKey = '%' + escapedOptions.searchKey + '%';
     Map<String, Object> binds = new Map<String, Object>{
@@ -113,7 +113,6 @@ public inherited sharing class CustomRecordListService {
       ' LIKE :searchKey' +
       ' ' +
       filterValue;
-    System.debug('query: ' + query);
     return this.db.getSelector()
       .countQueryWithBinds(query, binds, AccessLevel.USER_MODE);
   }
