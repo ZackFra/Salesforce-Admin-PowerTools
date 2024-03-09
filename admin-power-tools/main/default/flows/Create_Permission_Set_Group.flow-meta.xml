@@ -5,8 +5,12 @@
     <formulas>
         <name>DefaultApiName</name>
         <dataType>String</dataType>
-        <expression
-    >SUBSTITUTE({!Label}, &quot; &quot;, &quot;_&quot;)</expression>
+        <expression>SUBSTITUTE(SUBSTITUTE(
+  SUBSTITUTE(
+    SUBSTITUTE(
+      SUBSTITUTE(
+        SUBSTITUTE(
+           SUBSTITUTE({!Label}, &quot; &quot;, &quot;_&quot;), &quot; &quot;, &quot;_&quot;), &quot; &quot;, &quot;_&quot;), &quot; &quot;, &quot;_&quot;), &quot; &quot;, &quot;_&quot;), &quot; &quot;, &quot;_&quot;), &quot; &quot;, &quot;_&quot;)</expression>
     </formulas>
     <interviewLabel
   >Create Permission Set Group {!$Flow.CurrentDateTime}</interviewLabel>
@@ -164,7 +168,7 @@
         <fields>
             <name>ErrorMessage</name>
             <fieldText
-      >&lt;p&gt;&lt;strong style=&quot;color: rgb(255, 0, 0); font-size: 12px;&quot;&gt;Unable to create Permission Set Group.&lt;/strong&gt;&lt;/p&gt;</fieldText>
+      >&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(255, 0, 0);&quot;&gt;Unable to create Permission Set Group.&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 12px; color: rgb(255, 0, 0);&quot;&gt;{!$Flow.FaultMessage}&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>

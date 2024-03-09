@@ -3,9 +3,21 @@
     {
       "path": "force-app",
       "default": true
+    },
+    {
+      "path": "admin-power-tools",
+      "default": false
+    },
+    {
+      "path": "moxygen",
+      "default": false
+    },
+    {
+      "path": "universal-mocks",
+      "default": false
     }
   ],
-  "name": "Public-Group-Tab",
+  "name": "Custom-Record-List",
   "namespace": "",
   "sfdcLoginUrl": "https://login.salesforce.com",
   "sourceApiVersion": "59.0"

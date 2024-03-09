@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Salesforce_Administration</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>Permission_Set_Groups</members>
+        <members>Permission_Sets</members>
+        <members>Public_Groups_Queues</members>
+        <members>Users</members>
+        <members>Queues</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>Create_Permission_Set_Group</members>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>groupRecordList</members>
+        <members>permissionSetGroupRecordList</members>
+        <members>permissionSetRecordList</members>
+        <members>queuesRecordList</members>
+        <members>userRecordList</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>Custom_App_Salesforce_Administration</members>
+        <name>PermissionSet</name>
+    </types>
+    <version>59.0</version>
+</Package>
