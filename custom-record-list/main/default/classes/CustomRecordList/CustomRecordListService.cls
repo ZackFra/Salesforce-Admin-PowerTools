@@ -113,6 +113,7 @@ public inherited sharing class CustomRecordListService {
       ' LIKE :searchKey' +
       ' ' +
       filterValue;
+    System.debug('query: ' + query);
     return this.db.getSelector()
       .countQueryWithBinds(query, binds, AccessLevel.USER_MODE);
   }

@@ -25,6 +25,7 @@ public inherited sharing class ListFilter {
    */
   public String buildQueryFilter(Map<String, Object> binds) {
     String varName = this.field + Math.abs(UUID.randomUUID().hashCode());
+    System.debug('varName ' + varName);
     switch on this.comparate.type {
       when 'boolean' {
         binds.put(varName, (Boolean) this.comparate.value);

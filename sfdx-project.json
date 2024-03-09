@@ -1,12 +1,12 @@
 {
   "packageDirectories": [
     {
-      "path": "force-app",
-      "default": false
+      "path": "custom-record-list",
+      "default": true
     },
     {
       "path": "admin-power-tools",
-      "default": true
+      "default": false
     },
     {
       "path": "moxygen",
