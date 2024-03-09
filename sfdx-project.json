@@ -2,11 +2,11 @@
   "packageDirectories": [
     {
       "path": "force-app",
-      "default": true
+      "default": false
     },
     {
       "path": "admin-power-tools",
-      "default": false
+      "default": true
     },
     {
       "path": "moxygen",
