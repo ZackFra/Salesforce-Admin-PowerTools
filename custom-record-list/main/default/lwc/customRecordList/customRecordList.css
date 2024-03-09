@@ -1,0 +1,12 @@
+.m-left_auto {
+  margin-left: auto;
+}
+
+.m-top_auto {
+  margin-top: auto;
+}
+
+.right-align {
+  display: flex;
+  justify-content: flex-end;
+}

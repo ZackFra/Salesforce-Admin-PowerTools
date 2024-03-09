@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Comparate</members>
+        <members>ComparateTest</members>
+        <members>CustomRecordListController</members>
+        <members>CustomRecordListControllerTest</members>
+        <members>CustomRecordListService</members>
+        <members>CustomRecordListServiceTest</members>
+        <members>GetRecordOptions</members>
+        <members>GetRecordOptionsTest</members>
+        <members>ListFilter</members>
+        <members>ListFilterTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>customRecordList</members>
+        <members>customRecordListHeader</members>
+        <members>customRecordListLightningDatatable</members>
+        <members>customRecordListNewButton</members>
+        <members>dynamicFlowModal</members>
+        <name>LightningComponentBundle</name>
+    </types>
+    <version>59.0</version>
+</Package>
