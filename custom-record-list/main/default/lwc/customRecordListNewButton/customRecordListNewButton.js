@@ -1,6 +1,7 @@
 import { LightningElement, api } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
 import DynamicFlowModal from "c/dynamicFlowModal";
+import { handleError } from "c/lib";
 
 /**
  *
@@ -38,33 +39,31 @@ class CustomRecordListNewButton extends NavigationMixin(LightningElement) {
    * @returns {Promise<void>}
    */
   async handleNew() {
-    await this.newHandlers[this.type]();
+    try {
+      await this[this.handler]();
+    } catch (err) {
+      const config = {
+        title: "Failed to handle new record",
+        message: err.message,
+        variant: "error"
+      };
+      handleError(this, config);
+    }
   }
 
   /**
-   * @description The newHandlers object is a map of functions that handle the different types of newRecordLink
    *
-   * @type {{ flow: () => Promise<void>; regularLink: () => Promise<void>; standardRecord: () => Promise<void>; }}
-   */
-  newHandlers = {
-    flow: this.handleFlow,
-    regularLink: this.handleRegularLink,
-    standardRecord: this.handleStandardRecord
-  };
-
-  /**
-   *
-   * @description Returns the type of newRecordLink
+   * @description Returns the handler name for the "New" button
    * @readonly
-   * @type {("flow" | "regularLink" | "standardRecord")}
+   * @type {("handleFlow" | "handleRegularLink" | "handleStandardRecord")}
    */
-  get type() {
+  get handler() {
     if (this.newRecordLink.startsWith("/flow/")) {
-      return "flow";
+      return "handleFlow";
     } else if (this.newRecordLink) {
-      return "regularLink";
+      return "handleRegularLink";
     }
-    return "standardRecord";
+    return "handleStandardRecord";
   }
 
   /**
