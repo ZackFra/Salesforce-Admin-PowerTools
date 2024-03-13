@@ -5,12 +5,11 @@
 
 import { LightningElement, wire, api } from "lwc";
 // @ts-ignore
-import { ShowToastEvent } from "lightning/platformShowToastEvent";
-// @ts-ignore
 import { refreshApex } from "@salesforce/apex";
 import getRecords from "@salesforce/apex/CustomRecordListController.getRecords";
 import getRecordCount from "@salesforce/apex/CustomRecordListController.getRecordCount";
 import getPageSize from "@salesforce/apex/CustomRecordListController.getPageSize";
+import { handleError } from "c/lib";
 
 export default class CustomRecordList extends LightningElement {
   /**
@@ -111,7 +110,7 @@ export default class CustomRecordList extends LightningElement {
       return;
     }
     if (error) {
-      this.handleError(error);
+      this.handleApexError(error);
       return;
     }
 
@@ -188,7 +187,7 @@ export default class CustomRecordList extends LightningElement {
     }
     this.isLoading = false;
     if (error) {
-      this.handleError(error);
+      this.handleApexError(error);
     }
 
     this.records = data;
@@ -210,7 +209,7 @@ export default class CustomRecordList extends LightningElement {
     }
 
     if (error) {
-      this.handleError(error);
+      this.handleApexError(error);
       return;
     }
     this.totalRecords = data;
@@ -251,14 +250,13 @@ export default class CustomRecordList extends LightningElement {
    * @param {Error & { body: { message: string } } } err
    * @returns {void}
    */
-  handleError(err) {
-    this.dispatchEvent(
-      new ShowToastEvent({
-        title: "Error loading records",
-        message: err.body.message,
-        variant: "error"
-      })
-    );
+  handleApexError(err) {
+    const config = {
+      title: "Error loading records",
+      message: err.body.message,
+      variant: "error"
+    };
+    handleError(this, config);
   }
 
   /**

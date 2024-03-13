@@ -50,7 +50,7 @@ export default class PermissionSetGroupRecordList extends LightningElement {
   ];
 
   get newRecordLink() {
-    return `flow:Create_Permission_Set_Group`;
+    return `/flow/Create_Permission_Set_Group`;
   }
   get viewLink() {
     return `/lightning/setup/PermSetGroups/page?address=/{{recordId}}`;
