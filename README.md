@@ -1,6 +1,9 @@
-# Custom Record Lists
+# Admin PowerTools
 
-This project was created to create fancy list view for records that Salesforce has not migrated to Lightning yet.
+This project was initally created to create fancy list view for records that Salesforce has not migrated to Lightning yet.
+Though the code for that still exists and can be used, it has evolved into a suite of powertools for admin users.
+
+TODO: UPDATE README
 
 In the salesforce_administration_package.xml, you can see three examples of this. In it there is a custom tab defined for "Users", "Permission Sets", and "Public Groups & Queues". This is just one example. 
 
